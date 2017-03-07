@@ -6,7 +6,7 @@
 # Name          : George Mu
 # Collaborators : Sophie Meralli
 # Time spent    : 5:30
-ls
+
 
 import math
 import random
