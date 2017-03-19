@@ -1,15 +1,15 @@
 # Problem Set 4A
 # Authors: {oceliker, kmahar}@mit.edu
-# Name: <your name here>
+# Name: George Mu
 # Collaborators:
-# Time Spent: x:xx
-# Late Days Used: x
+# Time Spent: 2:30
+# Late Days Used:
 
 # Part A0: Data representation
 # Fill out the following variables correctly.
 # If correct, the tests named data_representation should pass.
-tree1 = [2, [1, 10]]
-tree2 = [[15,9],[10,[9,8]]]
+tree1 = [[1,10], 2]
+tree2 = [[15,9],[[9,8],10]]
 tree3 = [[12,21], [17,2],[6]]
 
 
@@ -27,9 +27,25 @@ def add_tree(tree):
        total: An int equal to the sum of all leaves of the tree.
 
     """
+    total = 0
 
-    # TODO: Your code here
-    pass
+    if not tree: # if it's an empty list
+        return 0
+    elif isinstance(tree[0], int): # if the first item is an int
+        total += tree[0]
+        return total + add_tree(tree[1:])
+    else: # if the first item is a list
+        return add_tree(tree[0]) + add_tree(tree[1:])
+
+    # Using a for loop (but still recursively)
+    # sum = 0
+    #
+    # for i in tree:
+    #     if isinstance(i, int):
+    #         sum += i
+    #     else:
+    #         sum += add_tree(i)
+    # return sum
 
 
 # Part A2: Arbitrary operations on tree leaves
@@ -61,9 +77,19 @@ def operate_tree(tree, op, base_case):
        base_case: What the operation should return as a result
        in the base case (i.e. when the tree is empty).
     """
+    op_total = base_case
 
-    # TODO: Your code here
-    pass
+    if not tree: # if it's an empty list
+        return base_case
+
+    elif isinstance(tree[0], int): # if the first item is an int
+        op_total = op(op_total, tree[0])
+
+        return op(op_total, operate_tree(tree[1:], op, base_case))
+
+    else: # if the first item is a list
+        return op(operate_tree(tree[0], op, base_case), operate_tree(tree[1:], op, base_case))
+
 
 # Part A3: Searching a tree
 
@@ -77,8 +103,28 @@ def search9(a, b):
         True if either input is equal to True or 9, and False otherwise
     """
 
-    # TODO: Your code here
-    pass
+    if type(a) == int and type(b) == int:
+        if a == 9 or b == 9:
+            return True
+    elif type(a) == bool and type(b) == bool:
+        if a == True or b == True:
+            return True
+    elif type(a) == bool and type(b) == int:
+        if a == True or b == 9:
+            return True
+        else:
+            return False
+    elif type(a) == int and type(b) == bool:
+        if a == False or b == True:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+
+
 
 if __name__ == '__main__':
     # You can use this part for your own testing and debugging purposes.
